@@ -11,7 +11,7 @@ async function bootstrap() {
   const doc = new GoogleSpreadsheet(SHEET_ID);
   const credentials: ServiceAccountCredentials = {
     client_email: GOOGLE_SHEETS_CLIENT_EMAIL,
-    private_key: GOOGLE_SHEETS_PRIVATE_KEY,
+    private_key: GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, '\n'),
   }
 
   await doc.useServiceAccountAuth(credentials);
