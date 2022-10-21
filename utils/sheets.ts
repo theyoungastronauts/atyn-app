@@ -18,6 +18,12 @@ async function bootstrap() {
     private_key: text,
   }
 
+  console.log("--------------------------");
+  console.log(process.env.HTTPS_PROXY);
+  console.log(process.env.HTTP_PROXY);
+  console.log("--------------------------");
+
+
   await doc.useServiceAccountAuth(credentials);
 
   await doc.loadInfo();
