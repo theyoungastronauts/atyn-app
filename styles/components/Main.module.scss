@@ -1,0 +1,88 @@
+@import "../config.scss";
+.container {
+    background-color: $colorLight;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px;
+    position: relative;
+}
+
+.border{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 11px;
+    height: 100%;
+    background-size: 100% auto;
+    background-image:url(/img/decor/border.png);
+    background-repeat: repeat-y;
+    
+}
+
+.sprocket{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 16px;
+    max-width: 523px;
+    width: 80%;
+    height: 9px;
+    background-size: contain;
+    background-image:url(/img/decor/sprocket.png);
+    background-repeat: no-repeat
+}
+
+.barcode{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 16px;
+    width: 151px;
+    height: 32px;
+    background-size: contain;
+    background-image:url(/img/decor/barcode.png);
+    background-repeat: no-repeat;
+    @include phone {
+        bottom: 90px;
+    }
+}
+
+
+.pg13{
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    width: 136px;
+    height: 26px;
+    background-size: contain;
+    background-image:url(/img/decor/pg13.png);
+    background-repeat: no-repeat;
+
+    @include phone {
+        bottom: 96px;
+    }
+}
+
+.void{
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 43px;
+    height: 328px;
+    background-size: contain;
+    background-image:url(/img/decor/void.png);
+    background-repeat: no-repeat;
+
+    @include phone {
+        // top: 32px;
+        // transform: translateY(0%);
+        left: -9px;
+
+    }
+}
+

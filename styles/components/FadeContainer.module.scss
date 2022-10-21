@@ -1,0 +1,32 @@
+
+
+
+
+@mixin container{
+    position: absolute;
+    transition: all .5s ease;
+
+    width: 100vw;
+    height: 100vh;
+
+ }
+
+
+.invisible {
+    @include container();
+    
+    opacity: 0;
+    pointer-events: none;
+   filter: blur(32px)
+
+}
+
+.visible {
+    @include container();
+
+    opacity: 1;
+    pointer-events: all;
+   filter: blur(0);
+
+
+}

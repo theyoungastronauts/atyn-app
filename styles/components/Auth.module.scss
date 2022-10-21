@@ -1,0 +1,120 @@
+
+@import "../config.scss";
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+.ropeBox {
+    position: relative;
+
+}
+
+
+.ropeLeft {
+    position: absolute;
+    left: -55%;
+    top: -65px;
+    width: 327px;
+    height: 368px;
+    background-image: url(/img/rope-left.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    @include phone {
+        display: none;
+    }
+}
+
+.ropeRight {
+    position: absolute;
+    right: -50%;
+    top: -65px;
+    width: 345px;
+    height: 368px;
+    background-image: url(/img/rope-right.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    @include phone {
+        display: none;
+    }
+}
+
+
+.container {
+    position: relative;
+    padding: 16px 32px 16px 16px;
+}
+.inputContainer{
+    box-shadow: 12px 12px rgba(0,0,0,.1);
+    padding: 12px;
+    // background-color: $colorRed;
+    background-color: #f53e38;
+    // border-radius: 8px;
+
+}
+.input {
+    padding: 8px;
+    font-size: 20px;
+    border: 12px solid $colorYellow;
+    // border-radius: 8px;
+    color: $colorRed;
+}
+
+.labelContainer {
+    padding: 8px 0;
+}
+
+.label {
+    display: inline-block;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $colorRed;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.submitContainer {
+    padding: 24px 0;
+    text-align: right;
+    transform: translateX(12px);
+
+}
+
+
+.error {
+    text-align: center;
+}
+.loader {
+
+    position: absolute;
+    background-color: rgba(0,0,0,.3);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left:0;
+    top:0;
+    backdrop-filter: saturate(0);
+}
+
+.loaderImage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+
+    img {
+        width: 185px;
+        height: 185px;
+        animation: spin 2s linear infinite;;
+    }
+
+}
