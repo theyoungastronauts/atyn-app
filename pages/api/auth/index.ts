@@ -10,17 +10,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const account = accounts.find(a => a.password == password);
 
     if (account) {
-      await createSession(account);
       return res.status(200).json({ success: true, account: { name: account.name, email: account.email } });
     }
 
     return res.status(400).json({ success: false });
 
-
-
   } else {
     res.status(400).json({ success: false });
-
   }
 }
 

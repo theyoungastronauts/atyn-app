@@ -14,13 +14,24 @@ const Auth = (props: Props) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const fetchData = async (): Promise<any> => {
+        try {
+            const response = await fetch(`/api/auth?password=${password}`);
+            return await response.json();
+        } catch (e) {
+            return await fetchData();
+        }
+    }
+
     const handleAuth = async () => {
         setError(false);
         setLoading(true);
 
+        const body = await fetchData();
 
-        const response = await fetch(`/api/auth?password=${password}`);
-        const body = await response.json();
+
+        // const response = await fetch(`/api/auth?password=${password}`);
+        // const body = await response.json();
 
         if (body.success) {
             setLoading(false);

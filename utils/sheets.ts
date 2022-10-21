@@ -3,7 +3,6 @@ import { GoogleSpreadsheet, GoogleSpreadsheetRow, ServiceAccountCredentials } fr
 import { Account } from '../interfaces';
 
 
-
 async function bootstrap() {
   const SHEET_ID: string = process.env.SPREADSHEET_ID || "";
   const GOOGLE_SHEETS_CLIENT_EMAIL: string = process.env.GOOGLE_SHEETS_CLIENT_EMAIL || "";
@@ -18,19 +17,12 @@ async function bootstrap() {
     private_key: text,
   }
 
-  console.log("--------------------------");
-  console.log(process.env.HTTPS_PROXY);
-  console.log(process.env.HTTP_PROXY);
-  console.log("--------------------------");
-
-
   await doc.useServiceAccountAuth(credentials);
 
   await doc.loadInfo();
 
   return doc;
 }
-
 
 async function list(sheetName: string): Promise<GoogleSpreadsheetRow[]> {
   const doc = await bootstrap();
@@ -44,7 +36,6 @@ async function insert(sheetName: string, data: Array<string | number | boolean>)
   try {
     const doc = await bootstrap();
     const sheet = doc.sheetsByTitle[sheetName];
-    const rows: GoogleSpreadsheetRow[] = await sheet.getRows();
     sheet.addRow(data);
     return true;
   } catch (e) {
@@ -52,7 +43,6 @@ async function insert(sheetName: string, data: Array<string | number | boolean>)
     return false;
   }
 }
-
 
 export async function getAccounts(): Promise<Account[]> {
   try {
@@ -74,16 +64,11 @@ export async function getAccounts(): Promise<Account[]> {
 }
 
 export async function createSession(account: Account): Promise<boolean> {
-
   const dateTime = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
   return await insert('sessions', [account.email, account.name, dateTime])
-
 }
 
-
 export async function createDownload(account: Account, type: string): Promise<boolean> {
-
   const dateTime = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
   return await insert('downloads', [type, account.email, account.name, dateTime])
-
 }

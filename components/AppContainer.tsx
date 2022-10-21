@@ -33,7 +33,7 @@ const AppContainer = () => {
                 setAppStage(AppStage.title);
                 setTimeout(() => {
                     setAppStage(AppStage.authenticate);
-                }, 5000);
+                }, 3000);
             }} />
         </FadeContainer>
 
