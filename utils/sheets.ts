@@ -9,9 +9,16 @@ async function bootstrap() {
   const GOOGLE_SHEETS_CLIENT_EMAIL: string = process.env.GOOGLE_SHEETS_CLIENT_EMAIL || "";
   const GOOGLE_SHEETS_PRIVATE_KEY: string = process.env.GOOGLE_SHEETS_PRIVATE_KEY || "";
   const doc = new GoogleSpreadsheet(SHEET_ID);
+
+
+  let buff = new Buffer(GOOGLE_SHEETS_PRIVATE_KEY, 'base64');
+  let text = buff.toString('ascii').replace(/\\n/g, '\n');
+
+  console.log(text);
+
   const credentials: ServiceAccountCredentials = {
     client_email: GOOGLE_SHEETS_CLIENT_EMAIL,
-    private_key: GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    private_key: text,
   }
 
   await doc.useServiceAccountAuth(credentials);
