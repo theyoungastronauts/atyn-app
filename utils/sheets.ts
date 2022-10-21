@@ -10,7 +10,6 @@ async function bootstrap() {
   const GOOGLE_SHEETS_PRIVATE_KEY: string = process.env.GOOGLE_SHEETS_PRIVATE_KEY || "";
   const doc = new GoogleSpreadsheet(SHEET_ID);
 
-
   let buff = new Buffer(GOOGLE_SHEETS_PRIVATE_KEY, 'base64');
   let text = buff.toString('ascii').replace(/\\n/g, '\n');
 
