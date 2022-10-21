@@ -49,7 +49,7 @@ const Auth = (props: Props) => {
                         handleAuth();
                     }} >
 
-                        <input autoFocus value={password} className={styles.input} type="password" onChange={(e) => { setPassword(e.target.value) }} ></input>
+                        <input value={password} className={styles.input} type="password" onChange={(e) => { setPassword(e.target.value) }} ></input>
                     </form>
                 </div>
 
