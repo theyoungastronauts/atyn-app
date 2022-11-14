@@ -1,8 +1,11 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/components/Auth.module.scss';
 import Button from './Button';
 import imgReel from '../public/img/reel.png';
+import { app, database } from '../firebaseConfig';
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { trackSession } from '../utils/tracking';
 
 interface Props {
     onSuccess: Function;
@@ -14,36 +17,52 @@ const Auth = (props: Props) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const fetchData = async (): Promise<any> => {
-        try {
-            const response = await fetch(`/api/auth?password=${password}`);
-            return await response.json();
-        } catch (e) {
-            return await fetchData();
-        }
-    }
-
     const handleAuth = async () => {
         setError(false);
         setLoading(true);
 
-        const body = await fetchData();
+        const ref = collection(database, "access");
+        const q = query(ref, where('password', "==", password));
 
+        const querySnapshot = await getDocs(q);
 
-        // const response = await fetch(`/api/auth?password=${password}`);
-        // const body = await response.json();
+        if (querySnapshot.docs.length > 0) {
+            const snapshot = querySnapshot.docs[0];
+            const data = snapshot.data();
 
-        if (body.success) {
+            trackSession(data.email);
             setLoading(false);
-            props.onSuccess(body.account);
 
-            return;
+            const account = { name: data.name, email: data.email, password: password };
+
+            if (typeof window !== "undefined") {
+                localStorage.setItem('account', JSON.stringify(account))
+            }
+
+            props.onSuccess(account);
+
+        } else {
+            setLoading(false);
+            setError(true);
         }
-        setLoading(false);
-        setError(true);
 
 
     }
+
+    useEffect(() => {
+
+        if (typeof window !== "undefined") {
+            const existing = localStorage.getItem('account');
+
+            if (existing) {
+                const account = JSON.parse(existing);
+                if (account.email) {
+                    trackSession(account.email);
+                    props.onSuccess(account);
+                }
+            }
+        }
+    }, []);
 
     return (
         <div className={styles.ropeBox}>

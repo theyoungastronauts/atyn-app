@@ -7,6 +7,9 @@ import imgYa from '../public/img/ya.png';
 import Image from 'next/image';
 import { Account } from '../interfaces';
 import config from '../config';
+import { useState } from 'react';
+import FadeContainer from './FadeContainer';
+import { trackDownload } from '../utils/tracking';
 
 
 interface Props {
@@ -14,6 +17,8 @@ interface Props {
 }
 
 const Content = (props: Props) => {
+
+    const [previewVisible, setPreviewVisible] = useState(false);
 
     const handleDownload = async (type: string) => {
 
@@ -23,10 +28,14 @@ const Content = (props: Props) => {
             window.open(config.scriptUrl)
         }
 
-        const response = await fetch(`/api/download/?type=${type}&email=${props.account.email}&name=${props.account.name}`);
-        const body = await response.json();
+        trackDownload(props.account.email, type);
+
+    }
 
 
+    const handleView = async () => {
+        setPreviewVisible(true);
+        trackDownload(props.account.email, "deckView");
 
     }
 
@@ -43,12 +52,19 @@ const Content = (props: Props) => {
                 <p className={styles.enjoy}>Enjoy your movie!</p>
             )}
 
+            <div style={{ textAlign: 'center' }}>
+                <Button label="Open Deck" large onPressed={() => {
+                    handleView();
+                }} />
+            </div>
+
+            <div style={{ height: 16 }}></div>
+
             <div className={styles.buttons}>
                 <div>
 
                     <Button label="Download Deck" onPressed={() => {
                         handleDownload('deck');
-
                     }} />
 
                 </div>
@@ -65,6 +81,12 @@ const Content = (props: Props) => {
 
                     <Image src={imgYa} alt="TYA" width={100} height={119} ></Image>
                 </a>
+            </div>
+
+            <div className={previewVisible ? styles.previewVisible : styles.previewInvisible}>
+
+                <iframe className={styles.preview} src={`https://indd.adobe.com/embed/${config.deckEmbedId}?startpage=1&allowFullscreen=false`} width="100%" height="100%" frameBorder={0} allowFullScreen={true}></iframe>
+                <div className={styles.previewClose} onClick={() => setPreviewVisible(false)}>[close]</div>
             </div>
         </div>)
 }

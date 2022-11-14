@@ -26,7 +26,7 @@
     border-radius: 12px;
     background: hsl(340deg 100% 32%);
   }
-  .front {
+  .front, .frontLarge {
     display: block;
     position: relative;
     padding: 8px 24px;
@@ -36,6 +36,11 @@
     color: white;
     background: $colorRed;
     transform: translateY(-4px);
+
+    &.frontLarge {
+      font-size: 28px;
+      font-weight:800;
+    }
   }
   
   .pushable:hover .front {
