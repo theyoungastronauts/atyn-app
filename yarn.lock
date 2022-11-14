@@ -880,6 +880,11 @@ acorn@^8.8.0:
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.8.0.tgz"
   integrity sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==
 
+adblock-detect-react@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/adblock-detect-react/-/adblock-detect-react-1.1.0.tgz#f34dc0ce6f92e011c17b1b94a9b98c3e737ff0c5"
+  integrity sha512-MyXO3gbq5JdYRYpCz0RiB3VFckYryIxVwME+ES6oPOIEovn17hKnfYOfwEXZyPUTnvEvtx7r8LY3hGpSDhNIoA==
+
 agent-base@6:
   version "6.0.2"
   resolved "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz"

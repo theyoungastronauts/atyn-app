@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 
 const AccessList = () => {
-    const [items, setEntries] = useState([]);
+    const [items, setItems] = useState([]);
 
     const [ name, setName ] = useState("");
     const [ email, setEmail ] = useState("");
@@ -13,7 +13,7 @@ const AccessList = () => {
 
    const load = async () => {
         const res = await axios.get('/api/access');
-        setEntries(res.data);
+        setItems(res.data);
     }
 
     useEffect( () => {

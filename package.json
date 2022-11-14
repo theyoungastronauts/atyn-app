@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "adblock-detect-react": "^1.1.0",
     "axios": "^1.1.3",
     "bootstrap": "^5.2.2",
     "dashify": "^2.0.0",

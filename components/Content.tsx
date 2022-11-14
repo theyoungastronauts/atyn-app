@@ -10,7 +10,7 @@ import config from '../config';
 import { useState } from 'react';
 import FadeContainer from './FadeContainer';
 import { trackDownload } from '../utils/tracking';
-
+import { useDetectAdBlock } from "adblock-detect-react";
 
 interface Props {
     account: Account;
@@ -19,6 +19,8 @@ interface Props {
 const Content = (props: Props) => {
 
     const [previewVisible, setPreviewVisible] = useState(false);
+    const adBlockDetected = useDetectAdBlock();
+
 
     const handleDownload = async (type: string) => {
 
@@ -34,7 +36,13 @@ const Content = (props: Props) => {
 
 
     const handleView = async () => {
-        setPreviewVisible(true);
+
+        if (adBlockDetected) {
+            window.open(`https://indd.adobe.com/view/${config.deckEmbedId}`);
+        } else {
+            setPreviewVisible(true);
+        }
+
         trackDownload(props.account.email, "deckView");
 
     }
