@@ -13,6 +13,9 @@ const Home: NextPage = (props) => {
 
   return (
     <>
+      <Head>
+        <link rel="icon" type="image/x-icon" href="https://theyoungastronauts.com/favicon.ico" />
+      </Head>
       <NextSeo
         title={title}
         description={description}
