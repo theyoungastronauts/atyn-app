@@ -7,7 +7,6 @@ import AppContainer from '../components/AppContainer'
 
 const Home: NextPage = (props) => {
 
-
   return (
     <AppContainer />
   )
