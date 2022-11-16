@@ -24,10 +24,12 @@ const Content = (props: Props) => {
 
     const handleDownload = async (type: string) => {
 
+        const baseUrl = `https://drive.google.com/uc?export=download&id=`;
+
         if (type == "deck") {
-            window.open(config.deckUrl)
+            window.open(`${baseUrl}${config.deckId}`);
         } else if (type == "script") {
-            window.open(config.scriptUrl)
+            window.open(`${baseUrl}${config.scriptId}`);
         }
 
         trackDownload(props.account.email, type);
