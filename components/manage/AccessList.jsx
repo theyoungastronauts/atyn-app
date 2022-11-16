@@ -31,7 +31,7 @@ const AccessList = () => {
 
         setName("");
         setEmail("");
-        setName("");
+        setPassword("");
         load();
     }
 
