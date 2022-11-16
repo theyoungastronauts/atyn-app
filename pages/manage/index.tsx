@@ -11,10 +11,24 @@ const Manage: NextPage = (props) => {
     const [authenticated, setAuthenticated] = useState(false);
     const [password, setPassword] = useState("");
 
+    useEffect(() => {
+
+        if (typeof window !== "undefined") {
+            if (localStorage.getItem('managePassword') == '2Infinity*') {
+                setAuthenticated(true);
+            }
+        }
+
+        return () => { };
+    }, []);
+
     const submit = (e: any) => {
         e.preventDefault();
         if (password == "2Infinity*") {
             setAuthenticated(true);
+            if (typeof window !== "undefined") {
+                localStorage.setItem('managePassword', password);
+            }
         } else {
             setPassword("");
             alert("Access denied");
