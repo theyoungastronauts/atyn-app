@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 class Api {
-    baseUrl = process.env.API_URL || "http://localhost:8000/v1";
+    baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/v1";
 
     login = async (password: string,) => {
         const response = await axios.post(`${this.baseUrl}/access/login/`, { password });
