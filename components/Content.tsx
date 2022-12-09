@@ -9,12 +9,15 @@ import { Account } from '../interfaces';
 import config from '../config';
 import { useState } from 'react';
 import FadeContainer from './FadeContainer';
-import { trackDownload } from '../utils/tracking';
+import Api from '../utils/api';
 import { useDetectAdBlock } from "adblock-detect-react";
 
 interface Props {
     account: Account;
 }
+
+const api = new Api();
+
 
 const Content = (props: Props) => {
 
@@ -24,15 +27,8 @@ const Content = (props: Props) => {
 
     const handleDownload = async (type: string) => {
 
-        const baseUrl = `https://drive.google.com/uc?export=download&id=`;
-
-        if (type == "deck") {
-            window.open(`${baseUrl}${config.deckId}`);
-        } else if (type == "script") {
-            window.open(`${baseUrl}${config.scriptId}`);
-        }
-
-        trackDownload(props.account.email, type);
+        const api = new Api();
+        window.open(`${api.baseUrl}/access/download?session=${props.account.session}&type=${type}`)
 
     }
 
@@ -45,7 +41,8 @@ const Content = (props: Props) => {
             setPreviewVisible(true);
         }
 
-        trackDownload(props.account.email, "deckView");
+        api.createAction(props.account.session, "deck_view");
+
 
     }
 

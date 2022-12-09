@@ -5,7 +5,7 @@ import Button from './Button';
 import imgReel from '../public/img/reel.png';
 import { app, database } from '../firebaseConfig';
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { trackSession } from '../utils/tracking';
+import Api from '../utils/api';
 
 interface Props {
     onSuccess: Function;
@@ -21,26 +21,15 @@ const Auth = (props: Props) => {
         setError(false);
         setLoading(true);
 
-        const ref = collection(database, "access");
-        const q = query(ref, where('password', "==", password));
+        const api = new Api();
+        const account = await api.login(password);
+        setLoading(false);
 
-        const querySnapshot = await getDocs(q);
-
-        if (querySnapshot.docs.length > 0) {
-            const snapshot = querySnapshot.docs[0];
-            const data = snapshot.data();
-
-            trackSession(data.email);
-            setLoading(false);
-
-            const account = { name: data.name, email: data.email, password: password };
-
-            if (typeof window !== "undefined") {
-                localStorage.setItem('account', JSON.stringify(account))
-            }
-
+        if (account) {
+            // if (typeof window !== "undefined") {
+            //     localStorage.setItem('password', password);
+            // }
             props.onSuccess(account);
-
         } else {
             setLoading(false);
             setError(true);
@@ -49,20 +38,19 @@ const Auth = (props: Props) => {
 
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (typeof window !== "undefined") {
-            const existing = localStorage.getItem('account');
-
-            if (existing) {
-                const account = JSON.parse(existing);
-                if (account.email) {
-                    trackSession(account.email);
-                    props.onSuccess(account);
-                }
-            }
-        }
-    }, []);
+    //     if (typeof window !== "undefined") {
+    //         const password = localStorage.getItem('password');
+    //         console.log({ password });
+    //         if (password) {
+    //             setPassword(password);
+    //             setTimeout(() => {
+    //                 handleAuth();
+    //             }, 100);
+    //         }
+    //     }
+    // }, []);
 
     return (
         <div className={styles.ropeBox}>
